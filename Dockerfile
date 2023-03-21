@@ -1,8 +1,10 @@
 FROM nginx:latest 
-MAINTAINER mavrick202@gmail.com 
-RUN apt install -y curl
+LABEL chukkavijay27@gmail.com
+RUN apt-get update && apt-get install -y curl \
+     && useradd -m ansibleadmin --shell /bin/bash \
 COPY index.html /usr/share/nginx/html/
 COPY scorekeeper.js /usr/share/nginx/html/
 COPY style.css /usr/share/nginx/html/
-#HEALTHCHECK CMD curl --fail http://localhost || exit 1
+RUN mkdir /myapp
+WORKDIR /myapp
 CMD ["nginx", "-g", "daemon off;"]
